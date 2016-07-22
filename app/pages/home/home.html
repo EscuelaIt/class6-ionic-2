@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-navbar primary>
+    <ion-title>
+      RockBand App
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="formRockBand.valid && saveData()" novalidate [ngFormModel]="formRockBand">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Name:</ion-label>
+        <ion-input type="text" [(ngModel)]="rockBand.name" ngControl="name"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="formRockBand.controls.name.dirty && !formRockBand.controls.name.valid">
+        <p *ngIf="formRockBand.controls.name.errors.required">
+          Este campo es requerido.
+        </p>
+        <p *ngIf="formRockBand.controls.name.errors.minlength">
+          Debe ser mayor a 4 c
+        </p>
+        <p *ngIf="formRockBand.controls.name.errors.maxlength">
+          Debe ser menor a 8 c
+        </p>
+        <p *ngIf="formRockBand.controls.name.errors.pattern">
+          No acepto numeros ni cardkjfh
+        </p>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Year:</ion-label>
+        <ion-input type="number" [(ngModel)]="rockBand.year" ngControl="year"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="formRockBand.controls.year.dirty && !formRockBand.controls.year.valid">
+        <p *ngIf="formRockBand.controls.year.errors.isOld">
+          Es un album muy viejo, actulizate!!
+        </p>
+        <p *ngIf="formRockBand.controls.year.errors.isNotReal">
+          Wooow ¿Vienes del futuro?
+        </p>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Category:</ion-label>
+        <ion-select [(ngModel)]="rockBand.category" ngControl="category">
+          <ion-option *ngFor="let category of categories" [value]="category.id">
+            {{ category.name }}
+          </ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Email:</ion-label>
+        <ion-input type="email" [(ngModel)]="rockBand.email" ngControl="email"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="formRockBand.controls.email.dirty && !formRockBand.controls.email.valid">
+        <p *ngIf="formRockBand.controls.email.errors.required">
+          Este campo es requerido.
+        </p>
+      </ion-item>
+    </ion-list>
+    <div padding>
+      <button type="submit" block [disabled]="!formRockBand.valid">Guardar</button>
+    </div>
+  </form>
+
+</ion-content>
